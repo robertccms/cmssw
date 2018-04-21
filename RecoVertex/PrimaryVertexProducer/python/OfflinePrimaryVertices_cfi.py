@@ -11,12 +11,20 @@ offlinePrimaryVertices = cms.EDProducer(
     
     TkFilterParameters = cms.PSet(
         algorithm=cms.string('filter'),
-        maxNormalizedChi2 = cms.double(10.0),
-        minPixelLayersWithHits=cms.int32(2),
-        minSiliconLayersWithHits = cms.int32(5),
-        maxD0Significance = cms.double(4.0), 
+
+#        maxNormalizedChi2 = cms.double(10.0),
+#        minPixelLayersWithHits=cms.int32(2),
+#        minSiliconLayersWithHits = cms.int32(5),
+#        maxD0Significance = cms.double(4.0), 
+
+# 2015 version
+        maxNormalizedChi2 = cms.double(80.0),
+        minPixelLayersWithHits=cms.int32(1),
+        minSiliconLayersWithHits = cms.int32(3),
+        maxD0Significance = cms.double(7.0), 
         minPt = cms.double(0.0),
-        maxEta = cms.double(2.4),
+#        maxEta = cms.double(2.4),
+        maxEta = cms.double(2.5),
         trackQuality = cms.string("any")
     ),
 
@@ -25,15 +33,24 @@ offlinePrimaryVertices = cms.EDProducer(
     vertexCollections = cms.VPSet(
      [cms.PSet(label=cms.string(""),
                algorithm=cms.string("AdaptiveVertexFitter"),
-               chi2cutoff = cms.double(2.5),
-               minNdof=cms.double(0.0),
+#               chi2cutoff = cms.double(2.5),
+# RC, 3, hardcoded in 76X: https://github.com/cms-sw/cmssw/blob/CMSSW_7_6_X/RecoVertex/VertexTools/interface/GeometricAnnealing.h
+# but 4 recommended
+               chi2cutoff = cms.double(4.0),
+# RC
+#               minNdof=cms.double(0.0),
+               minNdof=cms.double(-1.1),
                useBeamConstraint = cms.bool(False),
                maxDistanceToBeam = cms.double(1.0)
                ),
       cms.PSet(label=cms.string("WithBS"),
                algorithm = cms.string('AdaptiveVertexFitter'),
-               chi2cutoff = cms.double(2.5),
-               minNdof=cms.double(2.0),
+#               chi2cutoff = cms.double(2.5),
+# but 4 recommended
+               chi2cutoff = cms.double(4.0),
+# RC
+#               minNdof=cms.double(2.0),
+               minNdof=cms.double(-2.0),
                useBeamConstraint = cms.bool(True),
                maxDistanceToBeam = cms.double(1.0)
                )
