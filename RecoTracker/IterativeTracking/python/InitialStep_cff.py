@@ -23,12 +23,17 @@ trackingPhase2PU140.toModify(initialStepSeedLayers,
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpot_cfi import globalTrackingRegionFromBeamSpot as _globalTrackingRegionFromBeamSpot
 initialStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(RegionPSet = dict(
-    ptMin = 0.6,
-    originRadius = 0.02,
+# RC
+#    ptMin = 0.6,
+#    originRadius = 0.02,
+    ptMin = 0.1,
+    originRadius = 0.2,
     nSigmaZ = 4.0
 ))
 from Configuration.Eras.Modifier_trackingPhase2PU140_cff import trackingPhase2PU140
-trackingPhase1.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.5))
+# RC
+#trackingPhase1.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.5))
+trackingPhase1.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.1))
 trackingPhase2PU140.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.6,originRadius = 0.03))
 
 # seeding
@@ -63,8 +68,12 @@ _initialStepCAHitQuadruplets = _caHitQuadrupletEDProducer.clone(
     useBendingCorrection = True,
     fitFastCircle = True,
     fitFastCircleChi2Cut = True,
-    CAThetaCut = 0.0012,
-    CAPhiCut = 0.2,
+# RC
+#    CAThetaCut = 0.0012,
+#    CAPhiCut = 0.2,
+# x3/2
+    CAThetaCut = 0.0024,
+    CAPhiCut = 0.3,
 )
 initialStepHitQuadruplets = _initialStepCAHitQuadruplets.clone()
 trackingPhase1.toModify(initialStepHitDoublets, layerPairs = [0,1,2]) # layer pairs (0,1), (1,2), (2,3)
@@ -108,7 +117,9 @@ fastSim.toReplaceWith(initialStepSeeds,_fastSim_initialStepSeeds)
 import TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff
 _initialStepTrajectoryFilterBase = TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff.CkfBaseTrajectoryFilter_block.clone(
     minimumNumberOfHits = 3,
-    minPt = 0.2,
+# RC
+#    minPt = 0.2,
+    minPt = 0.1,
 )
 initialStepTrajectoryFilterBase = _initialStepTrajectoryFilterBase.clone(
     maxCCCLostHits = 0,
@@ -242,7 +253,9 @@ from RecoTracker.FinalTrackSelectors.TrackMVAClassifierDetached_cfi import *
 initialStepClassifier1 = TrackMVAClassifierPrompt.clone()
 initialStepClassifier1.src = 'initialStepTracks'
 initialStepClassifier1.mva.GBRForestLabel = 'MVASelectorIter0_13TeV'
-initialStepClassifier1.qualityCuts = [-0.9,-0.8,-0.7]
+# RC
+#initialStepClassifier1.qualityCuts = [-0.9,-0.8,-0.7]
+initialStepClassifier1.qualityCuts = [-0.95,-0.8,-0.7]
 fastSim.toModify(initialStepClassifier1,vertices = "firstStepPrimaryVerticesBeforeMixing")
 
 from RecoTracker.IterativeTracking.DetachedTripletStep_cff import detachedTripletStepClassifier1

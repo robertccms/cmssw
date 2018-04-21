@@ -50,8 +50,12 @@ trackingPhase2PU140.toModify(lowPtTripletStepSeedLayers, layerList = _layerListF
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpot_cfi import globalTrackingRegionFromBeamSpot as _globalTrackingRegionFromBeamSpot
 lowPtTripletStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(RegionPSet = dict(
-    ptMin = 0.2,
-    originRadius = 0.02,
+# RC step2
+#    ptMin = 0.2,
+    ptMin = 0.1,
+# RC
+#    originRadius = 0.02,
+    originRadius = 0.2,
     nSigmaZ = 4.0
 ))
 trackingPhase1.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.2))
@@ -112,8 +116,11 @@ trackingPhase1.toReplaceWith(lowPtTripletStepHitTriplets, _caHitTripletEDProduce
         value1 = 70 , value2 = 8,
     ),
     useBendingCorrection = True,
-    CAThetaCut = 0.002,
-    CAPhiCut = 0.05,
+# RC, step2
+#    CAThetaCut = 0.002,
+#    CAPhiCut = 0.05,
+    CAThetaCut = 0.003,
+    CAPhiCut = 0.075,
 ))
 
 trackingPhase2PU140.toModify(lowPtTripletStepHitDoublets, layerPairs = [0,1]) # layer pairs (0,1), (1,2)
@@ -254,7 +261,9 @@ lowPtTripletStep.qualityCuts = [-0.6,-0.3,-0.1]
 
 trackingPhase1.toReplaceWith(lowPtTripletStep, lowPtTripletStep.clone(
      mva = dict(GBRForestLabel = 'MVASelectorLowPtTripletStep_Phase1'),
-     qualityCuts = [-0.4,0.0,0.3],
+# RC, step2
+#     qualityCuts = [-0.4,0.0,0.3],
+     qualityCuts = [-0.7,-0.3,-0.1],
 ))
 fastSim.toModify(lowPtTripletStep, vertices = "firstStepPrimaryVerticesBeforeMixing")
 

@@ -20,7 +20,9 @@ detachedQuadStepSeedLayers = RecoTracker.TkSeedingLayers.PixelLayerQuadruplets_c
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpotFixedZ_cfi import globalTrackingRegionFromBeamSpotFixedZ as _globalTrackingRegionFromBeamSpotFixedZ
 detachedQuadStepTrackingRegions = _globalTrackingRegionFromBeamSpotFixedZ.clone(RegionPSet = dict(
-    ptMin = 0.3,
+# RC
+#    ptMin = 0.3,
+    ptMin = 0.1,
     originHalfLength = 15.0,
     originRadius = 1.5
 ))
@@ -67,7 +69,9 @@ detachedQuadStepHitQuadruplets = _caHitQuadrupletEDProducer.clone(
     useBendingCorrection = True,
     fitFastCircle = True,
     fitFastCircleChi2Cut = True,
-    CAThetaCut = 0.0011,
+# RC
+#    CAThetaCut = 0.0011,
+    CAThetaCut = 0.0016,
     CAPhiCut = 0,
 )
 from RecoTracker.TkSeedGenerator.seedCreatorFromRegionConsecutiveHitsTripletOnlyEDProducer_cff import seedCreatorFromRegionConsecutiveHitsTripletOnlyEDProducer as _seedCreatorFromRegionConsecutiveHitsTripletOnlyEDProducer
@@ -178,7 +182,9 @@ from RecoTracker.FinalTrackSelectors.TrackMVAClassifierDetached_cfi import *
 detachedQuadStep = TrackMVAClassifierDetached.clone(
     src = 'detachedQuadStepTracks',
     mva = dict(GBRForestLabel = 'MVASelectorDetachedQuadStep_Phase1'),
-    qualityCuts = [-0.5,0.0,0.5],
+# RC
+#    qualityCuts = [-0.5,0.0,0.5],
+    qualityCuts = [-0.7,0.0,0.5],
 )
 
 

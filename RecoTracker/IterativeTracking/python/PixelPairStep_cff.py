@@ -64,9 +64,13 @@ trackingPhase2PU140.toModify(pixelPairStepSeedLayers,
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionWithVertices_cff import globalTrackingRegionWithVertices as _globalTrackingRegionWithVertices
 pixelPairStepTrackingRegions = _globalTrackingRegionWithVertices.clone(RegionPSet = dict(
-    ptMin = 0.6,
-    originRadius = 0.015,
-    fixedError = 0.03,
+# RC
+#    ptMin = 0.6,
+#    originRadius = 0.015,
+#    fixedError = 0.03,
+    ptMin = 0.1,
+    originRadius = 0.2,
+    fixedError = 4.,
     useMultipleScattering = True,
 ))
 from Configuration.Eras.Modifier_trackingLowPU_cff import trackingLowPU
@@ -219,8 +223,9 @@ pixelPairStepTrajectoryFilterInOut = pixelPairStepTrajectoryFilterBase.clone(
 import RecoTracker.MeasurementDet.Chi2ChargeMeasurementEstimator_cfi
 pixelPairStepChi2Est = RecoTracker.MeasurementDet.Chi2ChargeMeasurementEstimator_cfi.Chi2ChargeMeasurementEstimator.clone(
     ComponentName = cms.string('pixelPairStepChi2Est'),
-    nSigma = cms.double(3.0),
-    MaxChi2 = cms.double(9.0),
+# RC
+#    nSigma = cms.double(3.0),
+#    MaxChi2 = cms.double(9.0),
     clusterChargeCut = cms.PSet(refToPSet_ = cms.string('SiStripClusterChargeCutLoose')),
     pTChargeCutThreshold = cms.double(15.)
 )
@@ -299,7 +304,9 @@ from RecoTracker.FinalTrackSelectors.TrackMVAClassifierPrompt_cfi import *
 pixelPairStep =  TrackMVAClassifierPrompt.clone()
 pixelPairStep.src = 'pixelPairStepTracks'
 pixelPairStep.mva.GBRForestLabel = 'MVASelectorIter2_13TeV'
-pixelPairStep.qualityCuts = [-0.2,0.0,0.3]
+# RC
+#pixelPairStep.qualityCuts = [-0.2,0.0,0.3]
+pixelPairStep.qualityCuts = [-0.95,0.0,0.3]
 
 trackingPhase1.toModify(pixelPairStep, mva=dict(GBRForestLabel = 'MVASelectorPixelPairStep_Phase1'))
 fastSim.toModify(pixelPairStep, vertices = "firstStepPrimaryVerticesBeforeMixing")

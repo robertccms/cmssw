@@ -27,11 +27,25 @@ trackingPhase1.toModify(mixedTripletStepClusters, oldClusterRemovalInfo="chargeC
 from RecoLocalTracker.SiStripClusterizer.SiStripClusterChargeCut_cfi import *
 from RecoTracker.IterativeTracking.DetachedTripletStep_cff import detachedTripletStepSeedLayers
 mixedTripletStepSeedLayersA = cms.EDProducer("SeedingLayersEDProducer",
-     layerList = cms.vstring('BPix2+FPix1_pos+FPix2_pos', 'BPix2+FPix1_neg+FPix2_neg'),
-#    layerList = cms.vstring('BPix1+BPix2+BPix3', 
-#        'BPix1+BPix2+FPix1_pos', 'BPix1+BPix2+FPix1_neg', 
-#        'BPix1+FPix1_pos+FPix2_pos', 'BPix1+FPix1_neg+FPix2_neg', 
-#        'BPix2+FPix1_pos+FPix2_pos', 'BPix2+FPix1_neg+FPix2_neg'),
+#RC
+     layerList = cms.vstring('BPix1+BPix2+BPix3',
+         'BPix1+FPix1_pos+FPix2_pos','BPix1+FPix1_neg+FPix2_neg',
+         'BPix2+FPix1_pos+FPix2_pos','BPix2+FPix1_neg+FPix2_neg',
+         'BPix1+BPix2+FPix1_pos', 'BPix1+BPix2+FPix1_neg',
+         'BPix1+BPix2+FPix2_pos', 'BPix1+BPix2+FPix2_neg',
+         'BPix1+TEC1_pos+TEC2_pos','BPix1+TEC1_neg+TEC2_neg',
+         'BPix2+TEC1_pos+TEC2_pos','BPix2+TEC1_neg+TEC2_neg',
+         'BPix1+TEC2_pos+TEC3_pos','BPix1+TEC2_neg+TEC3_neg',
+         'BPix2+TEC2_pos+TEC3_pos','BPix2+TEC2_neg+TEC3_neg',
+         'FPix1_pos+FPix2_pos+TEC1_pos', 'FPix1_neg+FPix2_neg+TEC1_neg',
+         'FPix1_pos+FPix2_pos+TEC2_pos', 'FPix1_neg+FPix2_neg+TEC2_neg',
+         'FPix2_pos+TEC2_pos+TEC3_pos', 'FPix2_neg+TEC2_neg+TEC3_neg'
+),
+#     layerList = cms.vstring('BPix2+FPix1_pos+FPix2_pos', 'BPix2+FPix1_neg+FPix2_neg'),
+##    layerList = cms.vstring('BPix1+BPix2+BPix3', 
+##        'BPix1+BPix2+FPix1_pos', 'BPix1+BPix2+FPix1_neg', 
+##        'BPix1+FPix1_pos+FPix2_pos', 'BPix1+FPix1_neg+FPix2_neg', 
+##        'BPix2+FPix1_pos+FPix2_pos', 'BPix2+FPix1_neg+FPix2_neg'),
     BPix = cms.PSet(
         TTRHBuilder = cms.string('WithTrackAngle'),
         HitProducer = cms.string('siPixelRecHits'),
@@ -67,9 +81,14 @@ trackingLowPU.toModify(mixedTripletStepSeedLayersA,
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpotFixedZ_cfi import globalTrackingRegionFromBeamSpotFixedZ as _globalTrackingRegionFromBeamSpotFixedZ
 _mixedTripletStepTrackingRegionsCommon = _globalTrackingRegionFromBeamSpotFixedZ.clone(RegionPSet = dict(
-    ptMin = 0.4,
+# RC
+#    ptMin = 0.4,
+#    originHalfLength = 15.0,
+#    originRadius = 1.5
+#
+    ptMin = 0.1,
     originHalfLength = 15.0,
-    originRadius = 1.5
+    originRadius = 0.2
 ))
 trackingLowPU.toModify(_mixedTripletStepTrackingRegionsCommon, RegionPSet = dict(originHalfLength = 10.0))
 mixedTripletStepTrackingRegionsA = _mixedTripletStepTrackingRegionsCommon.clone()
@@ -160,8 +179,11 @@ for e in [pp_on_XeXe_2017, pp_on_AA_2018]:
     e.toReplaceWith(mixedTripletStepTrackingRegionsB, 
                     _globalTrackingRegionWithVertices.clone(RegionPSet=dict(
                 fixedError = 2.5,
-                ptMin = 0.6,
-                originRadius = 1.5
+# RC
+#                ptMin = 0.6,
+#                originRadius = 1.5
+                ptMin = 0.1,
+                originRadius = 0.2
                 )
                                                                       )
 )
@@ -306,7 +328,9 @@ fastSim.toModify(mixedTripletStepClassifier1, vertices = "firstStepPrimaryVertic
 mixedTripletStepClassifier2 = TrackMVAClassifierPrompt.clone()
 mixedTripletStepClassifier2.src = 'mixedTripletStepTracks'
 mixedTripletStepClassifier2.mva.GBRForestLabel = 'MVASelectorIter0_13TeV'
-mixedTripletStepClassifier2.qualityCuts = [-0.2,-0.2,-0.2]
+# RC
+#mixedTripletStepClassifier2.qualityCuts = [-0.2,-0.2,-0.2]
+mixedTripletStepClassifier2.qualityCuts = [-0.4,-0.2,-0.2]
 fastSim.toModify(mixedTripletStepClassifier2,vertices = "firstStepPrimaryVerticesBeforeMixing")
 
 from RecoTracker.FinalTrackSelectors.ClassifierMerger_cfi import *
@@ -315,7 +339,9 @@ mixedTripletStep.inputClassifiers=['mixedTripletStepClassifier1','mixedTripletSt
 
 trackingPhase1.toReplaceWith(mixedTripletStep, mixedTripletStepClassifier1.clone(
      mva = dict(GBRForestLabel = 'MVASelectorMixedTripletStep_Phase1'),
-     qualityCuts = [-0.5,0.0,0.5],
+# RC
+#     qualityCuts = [-0.5,0.0,0.5],
+     qualityCuts = [-0.7,0.0,0.5],
 ))
 
 # For LowPU

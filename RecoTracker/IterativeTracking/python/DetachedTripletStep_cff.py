@@ -42,7 +42,9 @@ trackingPhase1.toModify(detachedTripletStepSeedLayers, layerList=_phase1LayerLis
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpotFixedZ_cfi import globalTrackingRegionFromBeamSpotFixedZ as _globalTrackingRegionFromBeamSpotFixedZ
 detachedTripletStepTrackingRegions = _globalTrackingRegionFromBeamSpotFixedZ.clone(RegionPSet = dict(
-    ptMin = 0.3,
+# RC
+#    ptMin = 0.3,
+    ptMin = 0.1,
     originHalfLength = 15.0,
     originRadius = 1.5
 ))
@@ -108,9 +110,14 @@ trackingPhase1.toReplaceWith(detachedTripletStepHitTriplets, _caHitTripletEDProd
         value1 = 300 , value2 = 10,
     ),
     useBendingCorrection = True,
-    CAThetaCut = 0.001,
+# RC
+#    CAThetaCut = 0.001,
+#    CAPhiCut = 0,
+#    CAHardPtCut = 0.2,
+#
+    CAThetaCut = 0.0015,
     CAPhiCut = 0,
-    CAHardPtCut = 0.2,
+    CAHardPtCut = 0.075,
 ))
 
 # QUALITY CUTS DURING TRACK BUILDING
@@ -237,7 +244,9 @@ detachedTripletStep.inputClassifiers=['detachedTripletStepClassifier1','detached
 
 trackingPhase1.toReplaceWith(detachedTripletStep, detachedTripletStepClassifier1.clone(
      mva = dict(GBRForestLabel = 'MVASelectorDetachedTripletStep_Phase1'),
-     qualityCuts = [-0.2,0.3,0.8],
+# RC
+#     qualityCuts = [-0.2,0.3,0.8],
+     qualityCuts = [-0.5,0.0,0.5],
 ))
 
 # For LowPU

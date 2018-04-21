@@ -17,8 +17,11 @@ lowPtQuadStepSeedLayers = RecoTracker.TkSeedingLayers.PixelLayerQuadruplets_cfi.
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpot_cfi import globalTrackingRegionFromBeamSpot as _globalTrackingRegionFromBeamSpot
 lowPtQuadStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(RegionPSet = dict(
-    ptMin = 0.15,
-    originRadius = 0.02,
+# RC
+#    ptMin = 0.15,
+#    originRadius = 0.02,
+    ptMin = 0.1,
+    originRadius = 0.2,
     nSigmaZ = 4.0
 ))
 from Configuration.Eras.Modifier_trackingPhase2PU140_cff import trackingPhase2PU140
@@ -61,8 +64,12 @@ lowPtQuadStepHitQuadruplets = _caHitQuadrupletEDProducer.clone(
     useBendingCorrection = True,
     fitFastCircle = True,
     fitFastCircleChi2Cut = True,
-    CAThetaCut = 0.0017,
-    CAPhiCut = 0.3,
+# RC
+#   CAThetaCut = 0.0017,
+#    CAPhiCut = 0.3,
+# x 3/2
+    CAThetaCut = 0.0025,
+    CAPhiCut = 0.45,
 )
 trackingPhase2PU140.toModify(lowPtQuadStepHitQuadruplets,CAThetaCut = 0.0015,CAPhiCut = 0.25)
 
@@ -166,7 +173,9 @@ from RecoTracker.FinalTrackSelectors.TrackMVAClassifierPrompt_cfi import *
 lowPtQuadStep =  TrackMVAClassifierPrompt.clone(
     src = 'lowPtQuadStepTracks',
     mva = dict(GBRForestLabel = 'MVASelectorLowPtQuadStep_Phase1'),
-    qualityCuts = [-0.7,-0.35,-0.15],
+# RC
+#    qualityCuts = [-0.7,-0.35,-0.15],
+    qualityCuts = [-0.9,-0.35,-0.15],
 )
 
 # For Phase2PU140
