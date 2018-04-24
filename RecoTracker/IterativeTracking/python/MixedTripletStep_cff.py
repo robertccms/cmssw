@@ -174,16 +174,15 @@ trackingLowPU.toModify(mixedTripletStepSeedLayersB,
 trackingPhase1.toModify(mixedTripletStepSeedLayersB, layerList = ['BPix3+BPix4+TIB1'])
 
 # TrackingRegion
-mixedTripletStepTrackingRegionsB = _mixedTripletStepTrackingRegionsCommon.clone(RegionPSet = dict(ptMin=0.6, originHalfLength=10.0))
+# RC
+#mixedTripletStepTrackingRegionsB = _mixedTripletStepTrackingRegionsCommon.clone(RegionPSet = dict(ptMin=0.6, originHalfLength=10.0))
+mixedTripletStepTrackingRegionsB = _mixedTripletStepTrackingRegionsCommon.clone(RegionPSet = dict(ptMin=0.1, originHalfLength=15.0))
 for e in [pp_on_XeXe_2017, pp_on_AA_2018]:
     e.toReplaceWith(mixedTripletStepTrackingRegionsB, 
                     _globalTrackingRegionWithVertices.clone(RegionPSet=dict(
                 fixedError = 2.5,
-# RC
-#                ptMin = 0.6,
-#                originRadius = 1.5
-                ptMin = 0.1,
-                originRadius = 0.2
+                ptMin = 0.6,
+                originRadius = 1.5
                 )
                                                                       )
 )
@@ -328,9 +327,7 @@ fastSim.toModify(mixedTripletStepClassifier1, vertices = "firstStepPrimaryVertic
 mixedTripletStepClassifier2 = TrackMVAClassifierPrompt.clone()
 mixedTripletStepClassifier2.src = 'mixedTripletStepTracks'
 mixedTripletStepClassifier2.mva.GBRForestLabel = 'MVASelectorIter0_13TeV'
-# RC
-#mixedTripletStepClassifier2.qualityCuts = [-0.2,-0.2,-0.2]
-mixedTripletStepClassifier2.qualityCuts = [-0.4,-0.2,-0.2]
+mixedTripletStepClassifier2.qualityCuts = [-0.2,-0.2,-0.2]
 fastSim.toModify(mixedTripletStepClassifier2,vertices = "firstStepPrimaryVerticesBeforeMixing")
 
 from RecoTracker.FinalTrackSelectors.ClassifierMerger_cfi import *
@@ -342,6 +339,8 @@ trackingPhase1.toReplaceWith(mixedTripletStep, mixedTripletStepClassifier1.clone
 # RC
 #     qualityCuts = [-0.5,0.0,0.5],
      qualityCuts = [-0.7,0.0,0.5],
+#
+# RC and no need for Classifier2.qualityCuts =[-0.4,-0.2,-0.2], as it has no effect
 ))
 
 # For LowPU

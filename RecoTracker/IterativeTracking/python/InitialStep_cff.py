@@ -71,9 +71,9 @@ _initialStepCAHitQuadruplets = _caHitQuadrupletEDProducer.clone(
 # RC
 #    CAThetaCut = 0.0012,
 #    CAPhiCut = 0.2,
-# x3/2
+# x2
     CAThetaCut = 0.0024,
-    CAPhiCut = 0.3,
+    CAPhiCut = 0.4,
 )
 initialStepHitQuadruplets = _initialStepCAHitQuadruplets.clone()
 trackingPhase1.toModify(initialStepHitDoublets, layerPairs = [0,1,2]) # layer pairs (0,1), (1,2), (2,3)
@@ -253,9 +253,7 @@ from RecoTracker.FinalTrackSelectors.TrackMVAClassifierDetached_cfi import *
 initialStepClassifier1 = TrackMVAClassifierPrompt.clone()
 initialStepClassifier1.src = 'initialStepTracks'
 initialStepClassifier1.mva.GBRForestLabel = 'MVASelectorIter0_13TeV'
-# RC
-#initialStepClassifier1.qualityCuts = [-0.9,-0.8,-0.7]
-initialStepClassifier1.qualityCuts = [-0.95,-0.8,-0.7]
+initialStepClassifier1.qualityCuts = [-0.9,-0.8,-0.7]
 fastSim.toModify(initialStepClassifier1,vertices = "firstStepPrimaryVerticesBeforeMixing")
 
 from RecoTracker.IterativeTracking.DetachedTripletStep_cff import detachedTripletStepClassifier1

@@ -48,7 +48,9 @@ detachedTripletStepTrackingRegions = _globalTrackingRegionFromBeamSpotFixedZ.clo
     originHalfLength = 15.0,
     originRadius = 1.5
 ))
-trackingPhase1.toModify(detachedTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.25))
+# RC
+#trackingPhase1.toModify(detachedTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.25))
+trackingPhase1.toModify(detachedTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.1))
 
 from Configuration.Eras.Modifier_pp_on_XeXe_2017_cff import pp_on_XeXe_2017
 from Configuration.Eras.Modifier_pp_on_AA_2018_cff import pp_on_AA_2018
@@ -115,9 +117,9 @@ trackingPhase1.toReplaceWith(detachedTripletStepHitTriplets, _caHitTripletEDProd
 #    CAPhiCut = 0,
 #    CAHardPtCut = 0.2,
 #
-    CAThetaCut = 0.0015,
-    CAPhiCut = 0,
-    CAHardPtCut = 0.075,
+    CAThetaCut = 0.002,
+    CAPhiCut = 0.1,
+    CAHardPtCut = 0.,
 ))
 
 # QUALITY CUTS DURING TRACK BUILDING

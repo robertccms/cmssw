@@ -151,8 +151,11 @@ pixelPairStepTrackingRegionsSeedLayersB = _pixelInactiveAreaTrackingRegionsAndSe
         skipClusters = cms.InputTag('pixelPairStepClusters')
     ),
     RegionPSet = dict(
-        ptMin = 0.6,
-        originRadius = 0.015,
+# RC
+#        ptMin = 0.6,
+#        originRadius = 0.015,
+        ptMin = 0.1,
+        originRadius = 0.2,
         operationMode = "VerticesFixed",
         zErrorVertex = 0.03,
         maxNVertices = 5,

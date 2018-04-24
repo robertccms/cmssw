@@ -67,9 +67,9 @@ lowPtQuadStepHitQuadruplets = _caHitQuadrupletEDProducer.clone(
 # RC
 #   CAThetaCut = 0.0017,
 #    CAPhiCut = 0.3,
-# x 3/2
-    CAThetaCut = 0.0025,
-    CAPhiCut = 0.45,
+# x2
+    CAThetaCut = 0.0034,
+    CAPhiCut = 0.6,
 )
 trackingPhase2PU140.toModify(lowPtQuadStepHitQuadruplets,CAThetaCut = 0.0015,CAPhiCut = 0.25)
 

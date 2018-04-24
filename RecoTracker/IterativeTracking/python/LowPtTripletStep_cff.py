@@ -50,15 +50,15 @@ trackingPhase2PU140.toModify(lowPtTripletStepSeedLayers, layerList = _layerListF
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpot_cfi import globalTrackingRegionFromBeamSpot as _globalTrackingRegionFromBeamSpot
 lowPtTripletStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(RegionPSet = dict(
-# RC step2
-#    ptMin = 0.2,
-    ptMin = 0.1,
-# RC
+   ptMin = 0.2,
+# RC, ptMin set in Phase1 customization below
 #    originRadius = 0.02,
     originRadius = 0.2,
     nSigmaZ = 4.0
 ))
-trackingPhase1.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.2))
+# RC
+#trackingPhase1.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.2))
+trackingPhase1.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.1))
 trackingPhase2PU140.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.40))
 
 from Configuration.Eras.Modifier_pp_on_XeXe_2017_cff import pp_on_XeXe_2017
@@ -119,8 +119,8 @@ trackingPhase1.toReplaceWith(lowPtTripletStepHitTriplets, _caHitTripletEDProduce
 # RC, step2
 #    CAThetaCut = 0.002,
 #    CAPhiCut = 0.05,
-    CAThetaCut = 0.003,
-    CAPhiCut = 0.075,
+    CAThetaCut = 0.004,
+    CAPhiCut = 0.1,
 ))
 
 trackingPhase2PU140.toModify(lowPtTripletStepHitDoublets, layerPairs = [0,1]) # layer pairs (0,1), (1,2)
