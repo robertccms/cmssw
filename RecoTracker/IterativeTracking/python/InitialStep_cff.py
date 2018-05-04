@@ -26,14 +26,14 @@ initialStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(RegionPSet 
 # RC
 #    ptMin = 0.6,
 #    originRadius = 0.02,
-    ptMin = 0.1,
+    ptMin = 0.05,
     originRadius = 0.2,
     nSigmaZ = 4.0
 ))
 from Configuration.Eras.Modifier_trackingPhase2PU140_cff import trackingPhase2PU140
 # RC
 #trackingPhase1.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.5))
-trackingPhase1.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.1))
+trackingPhase1.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.05))
 trackingPhase2PU140.toModify(initialStepTrackingRegions, RegionPSet = dict(ptMin = 0.6,originRadius = 0.03))
 
 # seeding
@@ -74,6 +74,9 @@ _initialStepCAHitQuadruplets = _caHitQuadrupletEDProducer.clone(
 # x2
     CAThetaCut = 0.0024,
     CAPhiCut = 0.4,
+# 1deg,45deg
+#    CAThetaCut = 0.0175,
+#    CAPhiCut = 0.8,
 )
 initialStepHitQuadruplets = _initialStepCAHitQuadruplets.clone()
 trackingPhase1.toModify(initialStepHitDoublets, layerPairs = [0,1,2]) # layer pairs (0,1), (1,2), (2,3)
@@ -119,7 +122,7 @@ _initialStepTrajectoryFilterBase = TrackingTools.TrajectoryFiltering.TrajectoryF
     minimumNumberOfHits = 3,
 # RC
 #    minPt = 0.2,
-    minPt = 0.1,
+    minPt = 0.05,
 )
 initialStepTrajectoryFilterBase = _initialStepTrajectoryFilterBase.clone(
     maxCCCLostHits = 0,

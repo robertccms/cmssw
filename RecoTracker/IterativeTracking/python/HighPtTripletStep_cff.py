@@ -56,8 +56,11 @@ trackingPhase2PU140.toModify(highPtTripletStepSeedLayers,
 # TrackingRegion
 from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpot_cfi import globalTrackingRegionFromBeamSpot as _globalTrackingRegionFromBeamSpot
 highPtTripletStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(RegionPSet = dict(
-    ptMin = 0.55,
-    originRadius = 0.02,
+# RC
+#    ptMin = 0.55,
+#    originRadius = 0.02,
+    ptMin = 0.05,
+    originRadius = 0.2,
     nSigmaZ = 4.0
 ))
 trackingPhase2PU140.toModify(highPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.7, originRadius = 0.02))
@@ -98,9 +101,13 @@ highPtTripletStepHitTriplets = _caHitTripletEDProducer.clone(
         value1 = 100, value2 = 6,
     ),
     useBendingCorrection = True,
-    CAThetaCut = 0.004,
-    CAPhiCut = 0.07,
-    CAHardPtCut = 0.3,
+#    CAThetaCut = 0.004,
+#    CAPhiCut = 0.07,
+#    CAHardPtCut = 0.3,
+
+    CAThetaCut = 0.008,
+    CAPhiCut = 0.14,
+    CAHardPtCut = 0.,
 )
 trackingPhase2PU140.toModify(highPtTripletStepHitTriplets,CAThetaCut = 0.003,CAPhiCut = 0.06,CAHardPtCut = 0.5)
 
@@ -113,7 +120,9 @@ highPtTripletStepSeeds = _seedCreatorFromRegionConsecutiveHitsEDProducer.clone(
 import TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff as _TrajectoryFilter_cff
 _highPtTripletStepTrajectoryFilterBase = _TrajectoryFilter_cff.CkfBaseTrajectoryFilter_block.clone(
     minimumNumberOfHits = 3,
-    minPt = 0.2,
+# RC
+#    minPt = 0.2,
+    minPt = 0.05,
 )
 highPtTripletStepTrajectoryFilterBase = _highPtTripletStepTrajectoryFilterBase.clone(
     maxCCCLostHits = 0,
@@ -134,7 +143,9 @@ trackingPhase2PU140.toModify(highPtTripletStepTrajectoryFilter,
 
 
 highPtTripletStepTrajectoryFilterInOut = highPtTripletStepTrajectoryFilterBase.clone(
-    minPt = 0.4,
+# RC
+#    minPt = 0.4,
+    minPt = 0.05,
     minimumNumberOfHits = 4,
     seedExtension = 1,
     strictSeedExtension = False, # allow inactive
@@ -214,7 +225,9 @@ from RecoTracker.FinalTrackSelectors.TrackMVAClassifierPrompt_cfi import *
 highPtTripletStep = TrackMVAClassifierPrompt.clone(
     src	= 'highPtTripletStepTracks',
     mva = dict(GBRForestLabel = 'MVASelectorHighPtTripletStep_Phase1'),
-    qualityCuts	= [0.2,0.3,0.4],
+# RC
+#    qualityCuts	= [0.2,0.3,0.4],
+    qualityCuts	= [-0.2,0.3,0.4],
 )
 
 

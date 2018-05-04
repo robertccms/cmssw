@@ -22,7 +22,7 @@ from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpotFixedZ_cfi im
 detachedQuadStepTrackingRegions = _globalTrackingRegionFromBeamSpotFixedZ.clone(RegionPSet = dict(
 # RC
 #    ptMin = 0.3,
-    ptMin = 0.1,
+    ptMin = 0.05,
     originHalfLength = 15.0,
     originRadius = 1.5
 ))
@@ -72,8 +72,12 @@ detachedQuadStepHitQuadruplets = _caHitQuadrupletEDProducer.clone(
 # RC
 #    CAThetaCut = 0.0011,
 #    CAPhiCut = 0,
+# F
     CAThetaCut = 0.0022,
     CAPhiCut = 0.1,
+# 1deg,45deg
+#    CAThetaCut = 0.0175,
+#    CAPhiCut = 0.8,
 # RC added
     CAHardPtCut = 0.,
 )

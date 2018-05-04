@@ -20,7 +20,7 @@ lowPtQuadStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(RegionPSe
 # RC
 #    ptMin = 0.15,
 #    originRadius = 0.02,
-    ptMin = 0.1,
+    ptMin = 0.05,
     originRadius = 0.2,
     nSigmaZ = 4.0
 ))
@@ -70,6 +70,9 @@ lowPtQuadStepHitQuadruplets = _caHitQuadrupletEDProducer.clone(
 # x2
     CAThetaCut = 0.0034,
     CAPhiCut = 0.6,
+# 1deg,45deg
+#    CAThetaCut = 0.0175,
+#    CAPhiCut = 0.8,
 )
 trackingPhase2PU140.toModify(lowPtQuadStepHitQuadruplets,CAThetaCut = 0.0015,CAPhiCut = 0.25)
 

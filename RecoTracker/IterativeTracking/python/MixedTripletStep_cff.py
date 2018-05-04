@@ -86,7 +86,7 @@ _mixedTripletStepTrackingRegionsCommon = _globalTrackingRegionFromBeamSpotFixedZ
 #    originHalfLength = 15.0,
 #    originRadius = 1.5
 #
-    ptMin = 0.1,
+    ptMin = 0.05,
     originHalfLength = 15.0,
     originRadius = 0.2
 ))
@@ -176,7 +176,7 @@ trackingPhase1.toModify(mixedTripletStepSeedLayersB, layerList = ['BPix3+BPix4+T
 # TrackingRegion
 # RC
 #mixedTripletStepTrackingRegionsB = _mixedTripletStepTrackingRegionsCommon.clone(RegionPSet = dict(ptMin=0.6, originHalfLength=10.0))
-mixedTripletStepTrackingRegionsB = _mixedTripletStepTrackingRegionsCommon.clone(RegionPSet = dict(ptMin=0.1, originHalfLength=15.0))
+mixedTripletStepTrackingRegionsB = _mixedTripletStepTrackingRegionsCommon.clone(RegionPSet = dict(ptMin=0.05, originHalfLength=15.0))
 for e in [pp_on_XeXe_2017, pp_on_AA_2018]:
     e.toReplaceWith(mixedTripletStepTrackingRegionsB, 
                     _globalTrackingRegionWithVertices.clone(RegionPSet=dict(
@@ -216,7 +216,7 @@ import TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff
 _mixedTripletStepTrajectoryFilterBase = TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff.CkfBaseTrajectoryFilter_block.clone(
 #    maxLostHits = 0,
     minimumNumberOfHits = 3,
-    minPt = 0.1
+    minPt = 0.05
 )
 
 mixedTripletStepTrajectoryFilter = _mixedTripletStepTrajectoryFilterBase.clone(
@@ -235,7 +235,9 @@ import TrackingTools.MaterialEffects.MaterialPropagator_cfi
 mixedTripletStepPropagator = TrackingTools.MaterialEffects.MaterialPropagator_cfi.MaterialPropagator.clone(
 #mixedTripletStepPropagator = TrackingTools.MaterialEffects.MaterialPropagatorParabolicMf_cff.MaterialPropagatorParabolicMF.clone(
     ComponentName = 'mixedTripletStepPropagator',
-    ptMin = 0.1
+# RC - only for 0.05
+#    ptMin = 0.1
+    ptMin = 0.05
     )
 for e in [pp_on_XeXe_2017, pp_on_AA_2018]:
     e.toModify(mixedTripletStepPropagator, ptMin=0.4)
@@ -244,7 +246,9 @@ import TrackingTools.MaterialEffects.OppositeMaterialPropagator_cfi
 mixedTripletStepPropagatorOpposite = TrackingTools.MaterialEffects.OppositeMaterialPropagator_cfi.OppositeMaterialPropagator.clone(
 #mixedTripletStepPropagatorOpposite = TrackingTools.MaterialEffects.MaterialPropagatorParabolicMf_cff.OppositeMaterialPropagatorParabolicMF.clone(
     ComponentName = 'mixedTripletStepPropagatorOpposite',
-    ptMin = 0.1
+# RC - only for 0.05
+#    ptMin = 0.1
+    ptMin = 0.05
     )
 for e in [pp_on_XeXe_2017, pp_on_AA_2018]:
     e.toModify(mixedTripletStepPropagatorOpposite, ptMin=0.4)

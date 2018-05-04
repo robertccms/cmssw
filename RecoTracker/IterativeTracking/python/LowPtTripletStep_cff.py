@@ -58,7 +58,7 @@ lowPtTripletStepTrackingRegions = _globalTrackingRegionFromBeamSpot.clone(Region
 ))
 # RC
 #trackingPhase1.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.2))
-trackingPhase1.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.1))
+trackingPhase1.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.05))
 trackingPhase2PU140.toModify(lowPtTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.40))
 
 from Configuration.Eras.Modifier_pp_on_XeXe_2017_cff import pp_on_XeXe_2017
@@ -116,11 +116,15 @@ trackingPhase1.toReplaceWith(lowPtTripletStepHitTriplets, _caHitTripletEDProduce
         value1 = 70 , value2 = 8,
     ),
     useBendingCorrection = True,
-# RC, step2
+# RC
 #    CAThetaCut = 0.002,
 #    CAPhiCut = 0.05,
+# RC x2
     CAThetaCut = 0.004,
     CAPhiCut = 0.1,
+# 1deg,45deg
+#    CAThetaCut = 0.0175,
+#    CAPhiCut = 0.8,
 ))
 
 trackingPhase2PU140.toModify(lowPtTripletStepHitDoublets, layerPairs = [0,1]) # layer pairs (0,1), (1,2)

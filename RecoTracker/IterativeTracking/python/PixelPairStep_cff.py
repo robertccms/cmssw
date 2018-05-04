@@ -68,7 +68,7 @@ pixelPairStepTrackingRegions = _globalTrackingRegionWithVertices.clone(RegionPSe
 #    ptMin = 0.6,
 #    originRadius = 0.015,
 #    fixedError = 0.03,
-    ptMin = 0.1,
+    ptMin = 0.05,
     originRadius = 0.2,
     fixedError = 4.,
     useMultipleScattering = True,
@@ -154,7 +154,7 @@ pixelPairStepTrackingRegionsSeedLayersB = _pixelInactiveAreaTrackingRegionsAndSe
 # RC
 #        ptMin = 0.6,
 #        originRadius = 0.015,
-        ptMin = 0.1,
+        ptMin = 0.05,
         originRadius = 0.2,
         operationMode = "VerticesFixed",
         zErrorVertex = 0.03,
@@ -182,7 +182,7 @@ trackingPhase1.toReplaceWith(pixelPairStepSeeds, _pixelPairStepSeedsMerged)
 import TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff
 _pixelPairStepTrajectoryFilterBase = TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff.CkfBaseTrajectoryFilter_block.clone(
     minimumNumberOfHits = 3,
-    minPt = 0.1,
+    minPt = 0.05,
 )
 pixelPairStepTrajectoryFilterBase = _pixelPairStepTrajectoryFilterBase.clone(
     seedPairPenalty =0,

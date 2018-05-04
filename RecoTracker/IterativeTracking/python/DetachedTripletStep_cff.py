@@ -44,13 +44,13 @@ from RecoTracker.TkTrackingRegions.globalTrackingRegionFromBeamSpotFixedZ_cfi im
 detachedTripletStepTrackingRegions = _globalTrackingRegionFromBeamSpotFixedZ.clone(RegionPSet = dict(
 # RC
 #    ptMin = 0.3,
-    ptMin = 0.1,
+    ptMin = 0.05,
     originHalfLength = 15.0,
     originRadius = 1.5
 ))
 # RC
 #trackingPhase1.toModify(detachedTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.25))
-trackingPhase1.toModify(detachedTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.1))
+trackingPhase1.toModify(detachedTripletStepTrackingRegions, RegionPSet = dict(ptMin = 0.05))
 
 from Configuration.Eras.Modifier_pp_on_XeXe_2017_cff import pp_on_XeXe_2017
 from Configuration.Eras.Modifier_pp_on_AA_2018_cff import pp_on_AA_2018
@@ -116,9 +116,13 @@ trackingPhase1.toReplaceWith(detachedTripletStepHitTriplets, _caHitTripletEDProd
 #    CAThetaCut = 0.001,
 #    CAPhiCut = 0,
 #    CAHardPtCut = 0.2,
-#
+# F
     CAThetaCut = 0.002,
     CAPhiCut = 0.1,
+# 1deg,45deg
+#    CAThetaCut = 0.0175,
+#    CAPhiCut = 0.8,
+#
     CAHardPtCut = 0.,
 ))
 
